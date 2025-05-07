@@ -5,7 +5,6 @@ import { users } from '@/db/schema/user'; // Your Drizzle table schema
 import { getServerSession } from 'next-auth';
 import { authOptions } from '@/app/api/auth/[...nextauth]/route';
 import { redirect } from 'next/navigation';
-import LogoutButton from '@/components/ui/LogoutButton';
 import { Button } from '@/components/ui/button';
 import {
   TableBody,

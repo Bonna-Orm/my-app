@@ -4,7 +4,7 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import Link from 'next/link';
 
-export default async function CreateUserForm() {
+export default function CreateUserForm() {
 
     const [formData, setFormData] = useState({
       name: '',
