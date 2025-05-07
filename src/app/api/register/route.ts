@@ -4,6 +4,8 @@ import { eq } from 'drizzle-orm';
 import bcrypt from 'bcryptjs';
 import { NextResponse } from 'next/server';
 
+export const runtime = 'nodejs';
+
 export async function POST(req: Request) {
   try {
     // Parse and validate the request body

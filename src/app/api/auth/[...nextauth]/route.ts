@@ -32,6 +32,8 @@ declare module 'next-auth' {
   }
 }
 
+export const runtime = 'nodejs';
+
 // Define the NextAuth options
 export const authOptions: NextAuthOptions = {
   adapter: DrizzleAdapter(db),

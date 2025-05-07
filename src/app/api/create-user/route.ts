@@ -4,6 +4,8 @@ import { users } from '@/db/schema/user'; // Import your user schema
 import { eq } from 'drizzle-orm';
 import bcrypt from 'bcryptjs';
 
+export const runtime = 'nodejs';
+
 // GET: Fetch all users
 export async function GET() {
   try {

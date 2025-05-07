@@ -14,6 +14,7 @@ import {
   TableHeader,
   TableRow,
 } from '@/components/ui/table';
+import Link from 'next/link';
 
 interface User {
   id: string;
@@ -46,10 +47,17 @@ export default async function AdminPage() {
   return (
     <div className="p-6 space-y-4">
       <h1 className="text-xl font-semibold">Hello, {session.user.email}</h1>
-      <LogoutButton />
-      <Button asChild>
-        <a href="/admin/create-user">Add User</a>
-      </Button>
+
+      <div className='flex gap-2'>
+          <Button asChild>
+            <a href="/admin/create-user">Add User</a>
+          </Button>
+          <Link href='/dashboard'>
+            <Button>
+                Back
+            </Button>
+          </Link>
+      </div>
 
       <div className="mt-4">
         <div className="overflow-x-auto border rounded-md">
