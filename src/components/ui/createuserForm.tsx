@@ -31,7 +31,7 @@ export default function CreateUserForm() {
       }
   
       try {
-        const res = await fetch('/api/create-user', {
+        const res = await fetch('/api/users', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify(formData),

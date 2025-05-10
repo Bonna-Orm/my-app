@@ -5,6 +5,8 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
+import Link from 'next/link';
+import { Label } from '@/components/ui/label';
 
 export default function RegisterPage() {
   const router = useRouter();
@@ -49,6 +51,11 @@ export default function RegisterPage() {
           <Button type="submit" className="w-full" disabled={loading}>
             {loading ? 'Registering...' : 'Register'}
           </Button>
+          <div>
+            <Link href='/login'>
+              <Label className='pt-5'>Already have an account? Login</Label>
+            </Link>
+          </div>
         </form>
       </CardContent>
     </Card>

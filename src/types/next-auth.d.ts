@@ -13,6 +13,7 @@ declare module 'next-auth' {
   interface User {
     id: string;
     email: string;
+    user: string;
     //role: string; // ✅ Add this!
   }
 }

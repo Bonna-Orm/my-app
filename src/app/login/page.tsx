@@ -6,6 +6,8 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { signIn } from 'next-auth/react';
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
+import Link from 'next/link';
+import { Label } from '@/components/ui/label';
 
 export default function LoginPage() {
   const router = useRouter();
@@ -32,7 +34,7 @@ export default function LoginPage() {
     if (session?.user?.role === 'admin' && session?.user.role !=='owner') {
       router.push('/dashboard');
     } else {
-      router.push('/dashboard');
+      router.push('/user');
     }
   };
 
@@ -47,6 +49,9 @@ export default function LoginPage() {
           <Input type="password" name="password" placeholder="Password" required />
           {error && <p className="text-red-500 text-sm">{error}</p>}
           <Button type="submit" className="w-full">Login</Button>
+          <Link href='/register'>
+        <Label className='pt-5'>Don't have an account register here.</Label>
+      </Link>
         </form>
       </CardContent>
     </Card>

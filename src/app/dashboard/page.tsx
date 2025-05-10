@@ -22,6 +22,14 @@ export default async function DashboardPage() {
       <Link href='/admin'>
         <Label className='pt-5'>User List</Label>
       </Link>
+
+      <Link href='/cashier'>
+        <Label className='pt-5'>Cashier Page</Label>
+      </Link>
+
+      <Link href='/user'>
+        <Label className='pt-5'>User Page</Label>
+      </Link>
     </div>
   );
 }

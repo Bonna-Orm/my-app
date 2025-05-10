@@ -75,19 +75,19 @@ export async function PUT(req: Request) {
 }
 
 // DELETE: Delete a user by ID
-export async function DELETE(req: Request) {
-  try {
-    const { searchParams } = new URL(req.url);
-    const id = searchParams.get('id');
+// export async function DELETE(req: Request) {
+//   try {
+//     const { searchParams } = new URL(req.url);
+//     const id = searchParams.get('id');
 
-    if (!id) {
-      return NextResponse.json({ error: 'User ID is required' }, { status: 400 });
-    }
+//     if (!id) {
+//       return NextResponse.json({ error: 'User ID is required' }, { status: 400 });
+//     }
 
-    await db.delete(users).where(eq(users.id, id));
-    return NextResponse.json({ message: 'User deleted successfully' }, { status: 200 });
-  } catch (error) {
-    console.error('Error deleting user:', error);
-    return NextResponse.json({ error: 'Failed to delete user' }, { status: 500 });
-  }
-}
+//     await db.delete(users).where(eq(users.id, id));
+//     return NextResponse.json({ message: 'User deleted successfully' }, { status: 200 });
+//   } catch (error) {
+//     console.error('Error deleting user:', error);
+//     return NextResponse.json({ error: 'Failed to delete user' }, { status: 500 });
+//   }
+// }
