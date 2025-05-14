@@ -53,7 +53,7 @@ export default function RegisterPage() {
           </Button>
           <div>
             <Link href='/login'>
-              <Label className='pt-5'>Already have an account? Login</Label>
+              <Label className='pt-5'>Already have an account Login</Label>
             </Link>
           </div>
         </form>

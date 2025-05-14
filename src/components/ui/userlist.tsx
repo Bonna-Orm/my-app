@@ -13,6 +13,7 @@ import Link from 'next/link';
 import EditUserModal from '@/components/ui/EditUserModal';
 import DeleteUserDialog from '@/components/ui/DeleteUserDialog';
 import { toast } from 'sonner';
+import { getSession } from 'next-auth/react';
 
 interface User {
   id: string;
@@ -28,11 +29,17 @@ export default function UserList() {
 
   const [deleteDialogOpen, setDeleteDialogOpen] = useState(false);
   const [userToDelete, setUserToDelete] = useState<User | null>(null);
+  const [currentRole, setCurrentRole] = useState<string | null>(null);
 
   const fetchUsers = async () => {
     const res = await fetch('/api/users');
     const data = await res.json();
     setUsers(data);
+  };
+
+  const fetchSession = async () => {
+    const session = await getSession();
+    setCurrentRole(session?.user?.role ?? null);
   };
 
   const confirmDeleteUser = async () => {
@@ -54,7 +61,10 @@ export default function UserList() {
 
   useEffect(() => {
     fetchUsers();
+    fetchSession();
   }, []);
+
+  const hasPermission = currentRole === 'admin' || currentRole === 'owner';
 
   return (
     <div className="p-6 space-y-4">
@@ -82,22 +92,26 @@ export default function UserList() {
                   <TableCell>{user.email}</TableCell>
                   <TableCell>{user.role}</TableCell>
                   <TableCell className="text-right space-x-2">
-                    <Button size="sm" variant="outline" onClick={() => {
-                      setSelectedUser(user);
-                      setModalOpen(true);
-                    }}>
-                      Edit
-                    </Button>
-                    <Button
-                      size="sm"
-                      variant="destructive"
-                      onClick={() => {
-                        setUserToDelete(user);
-                        setDeleteDialogOpen(true);
-                      }}
-                    >
-                      Delete
-                    </Button>
+                    {hasPermission && (
+                      <>
+                        <Button size="sm" variant="outline" onClick={() => {
+                          setSelectedUser(user);
+                          setModalOpen(true);
+                        }}>
+                          Edit
+                        </Button>
+                        <Button
+                          size="sm"
+                          variant="destructive"
+                          onClick={() => {
+                            setUserToDelete(user);
+                            setDeleteDialogOpen(true);
+                          }}
+                        >
+                          Delete
+                        </Button>
+                      </>
+                    )}
                   </TableCell>
                 </TableRow>
               ))}

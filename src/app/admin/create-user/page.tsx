@@ -12,19 +12,19 @@ export default async function CreateUserPage() {
     redirect('/login');
   }
 
-  if (session.user.role !== 'admin' && session.user.role !== 'owner') {
-    return (
-      <div className="max-w-md mx-auto mt-10">
-        <Alert variant="destructive">
-          <ExclamationTriangleIcon className="h-4 w-4" />
-          <AlertTitle>Access Denied</AlertTitle>
-          <AlertDescription>
-            You do not have permission to create a user.
-          </AlertDescription>
-        </Alert>
-      </div>
-    );
-  }
+  // if (session.user.role !== 'admin' && session.user.role !== 'owner') {
+  //   return (
+  //     <div className="max-w-md mx-auto mt-10">
+  //       <Alert variant="destructive">
+  //         <ExclamationTriangleIcon className="h-4 w-4" />
+  //         <AlertTitle>Access Denied</AlertTitle>
+  //         <AlertDescription>
+  //           You do not have permission to create a user.
+  //         </AlertDescription>
+  //       </Alert>
+  //     </div>
+  //   );
+  // }
 
   return (
     <div className="p-6">

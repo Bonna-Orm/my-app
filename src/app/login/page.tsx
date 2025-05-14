@@ -34,7 +34,7 @@ export default function LoginPage() {
     if (session?.user?.role === 'admin' && session?.user.role !=='owner') {
       router.push('/dashboard');
     } else {
-      router.push('/user');
+      router.push('/dashboard');
     }
   };
 

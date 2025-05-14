@@ -122,7 +122,7 @@ export default function CreateUserForm() {
             <Button type="submit">
               Create
             </Button>
-            <Link href='/dashboard'>
+            <Link href='/admin'>
               <Button className='bg-red-500'>
                 Cancel
               </Button>
