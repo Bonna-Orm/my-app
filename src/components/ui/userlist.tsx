@@ -20,6 +20,7 @@ interface User {
   name: string;
   email: string;
   role: string;
+  storeId: number;
 }
 
 export default function UserList() {
@@ -70,7 +71,11 @@ export default function UserList() {
     <div className="p-6 space-y-4">
       <h1 className="text-xl font-semibold">User List</h1>
       <div className="flex gap-2">
-        <Button asChild><a href="/admin/create-user">Add User</a></Button>
+        {hasPermission && (
+          <Button asChild>
+            <Link href="/admin/create-user">Add User</Link>
+          </Button>
+        )}
         <Link href="/dashboard"><Button>Back</Button></Link>
       </div>
 
@@ -82,6 +87,7 @@ export default function UserList() {
                 <TableHead>Name</TableHead>
                 <TableHead>Email</TableHead>
                 <TableHead>Role</TableHead>
+                 <TableHead>Store Id</TableHead>
                 <TableHead className="text-right">Actions</TableHead>
               </TableRow>
             </TableHeader>
@@ -91,6 +97,7 @@ export default function UserList() {
                   <TableCell>{user.name}</TableCell>
                   <TableCell>{user.email}</TableCell>
                   <TableCell>{user.role}</TableCell>
+                  <TableCell>{user.storeId}</TableCell>
                   <TableCell className="text-right space-x-2">
                     {hasPermission && (
                       <>

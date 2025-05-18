@@ -9,32 +9,60 @@ export const runtime = 'nodejs';
 export async function POST(req: Request) {
   try {
     // Parse and validate the request body
-    const { name, email, password, } = await req.json();
+    const { name, email, password, storeId } = await req.json();
 
+    // Validate required fields
     if (!name || !email || !password) {
-      return NextResponse.json({ error: 'All fields are required' }, { status: 400 });
+      return NextResponse.json(
+        { success: false, error: "Name, email, password, are required" },
+        { status: 400 }
+      );
     }
 
     // Check if the user already exists
     const existingUser = await db.select().from(users).where(eq(users.email, email));
     if (existingUser.length > 0) {
-      return NextResponse.json({ error: 'User already exists' }, { status: 400 });
+      return NextResponse.json(
+        { success: false, error: "User with this email already exists" },
+        { status: 400 }
+      );
     }
 
     // Hash the password
     const hashedPassword = await bcrypt.hash(password, 10);
 
     // Insert the new user into the database
-    await db.insert(users).values({
+    const newUser = await db.insert(users).values({
       name,
       email,
       password: hashedPassword,
-      role:'admin',
+      role: "owner", // Default role
+      storeId, // Ensure storeId is valid
+      createdAt: new Date(),
+      updatedAt: new Date(),
     });
 
-    return NextResponse.json({ message: 'User registered successfully' }, { status: 201 });
+    // Return a success response
+    return NextResponse.json(
+      {
+        success: true,
+        message: "User registered successfully",
+        data: newUser,
+      },
+      { status: 201 }
+    );
   } catch (error) {
-    console.error('Error registering user:', error);
-    return NextResponse.json({ error: 'Internal Server Error' }, { status: 500 });
+    // Log the error for debugging
+    console.error("Error registering user:", error);
+
+    // Return an error response
+    return NextResponse.json(
+      {
+        success: false,
+        error: "Internal Server Error",
+        details: error instanceof Error ? error.message : "Unknown error",
+      },
+      { status: 500 }
+    );
   }
 }

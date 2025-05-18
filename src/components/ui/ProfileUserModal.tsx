@@ -12,7 +12,6 @@ interface EditUserModalProps {
     name: string;
     email: string;
     role: string;
-    storeId: number | string;
   };
   open: boolean;
   onClose: () => void;
@@ -27,20 +26,6 @@ export default function EditUserModal({ user, open, onClose, onUpdate }: EditUse
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
-  const handleSubmit = async () => {
-    const res = await fetch(`/api/users/${user.id}`, {
-      method: 'PUT',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(formData),
-    });
-
-    if (res.ok) {
-      onUpdate();
-      onClose();
-    } else {
-      alert('Failed to update user');
-    }
-  };
 
   return (
     <Dialog open={open} onOpenChange={onClose}>
@@ -49,24 +34,8 @@ export default function EditUserModal({ user, open, onClose, onUpdate }: EditUse
           <DialogTitle>Edit User</DialogTitle>
         </DialogHeader>
         <div className="space-y-4">
-          <Input name="name" value={formData.name} onChange={handleChange} placeholder="Name" />
-          <Input name="email" value={formData.email} onChange={handleChange} placeholder="Email" />
-          <select name="role" value={formData.role} onChange={handleChange} className="w-full border p-2 rounded">
-            <option value="user">User</option>
-            <option value="cashier">Cashier</option>
-            <option value="admin">Admin</option>
-            <option value="owner">Owner</option>
-          </select>
-          <Input
-            name="storeId"
-            value={formData.storeId}
-            onChange={handleChange}
-            placeholder="Store Id"
-            type="number"
-          />
           <div className="flex justify-end gap-2">
             <Button variant="outline" onClick={onClose}>Cancel</Button>
-            <Button onClick={handleSubmit}>Save</Button>
           </div>
         </div>
       </DialogContent>

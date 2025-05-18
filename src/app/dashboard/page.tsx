@@ -11,10 +11,10 @@ export default async function DashboardPage() {
   if (!session) {
     return redirect("/login");
   }
-
   return (
     <div className="p-6">
       <h1 className="text-xl font-semibold mb-4">Hello, {session.user?.email}</h1>
+
       <CreateUserButton userRole={session.user.role ?? ""} />
 
       <Link href="/admin">
@@ -22,16 +22,16 @@ export default async function DashboardPage() {
       </Link>
 
       {/* Conditionally render the Cashier Page link */}
-      {session.user.role === "cashier" && "admin" && (
+      {(session.user.role === "cashier" || session.user.role ==="admin" || session.user.role === "owner") && (
         <Link href="/cashier">
           <Label className="pt-5">Cashier Page</Label>
         </Link>
       )}
       
-      {session.user.role === "user" && "admin" && (
+      {(session.user.role === "user" || session.user.role ==="admin" || session.user.role === "owner")  && (
         <Link href="/user">
-        <Label className="pt-5">User Page</Label>
-      </Link>
+          <Label className="pt-5">User Page</Label>
+        </Link>
       )}
     </div>
   );
